@@ -8,12 +8,12 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
   public static String TAG = ProductDetailPresenter.class.getSimpleName();
 
   private WeakReference<ProductDetailContract.View> view;
-  private ProductDetailViewModel viewModel;
+  private ProductDetailState state;
   private ProductDetailContract.Model model;
   private ProductDetailContract.Router router;
 
   public ProductDetailPresenter(ProductDetailState state) {
-    viewModel = state;
+    this.state = state;
   }
 
   @Override
@@ -38,17 +38,17 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
     // set passed state
     Integer productId = router.getDataFromProductListScreen();
     if (productId != null) {
-      viewModel.product = model.getProduct(productId);
+      state.product = model.getProduct(productId);
     }
 
     /*
     ProductItem product = router.getDataFromProductListScreen();
     if(product != null) {
-        viewModel.product = product;
+        state.product = product;
     }
     */
 
-    view.get().displayProductDetailData(viewModel);
+    view.get().displayProductDetailData(state);
   }
 
 }
