@@ -14,10 +14,8 @@ interface ProductDetailContract {
 
   interface Presenter {
     void injectView(WeakReference<View> view);
-
     void injectModel(Model model);
-
-    void injectRouter(Router router);
+    //void injectRouter(Router router);
 
     void fetchProductDetailData();
   }
@@ -27,9 +25,9 @@ interface ProductDetailContract {
     ProductItem getProduct(int id);
   }
 
-  interface Router {
-
-    //ProductItem getDataFromProductListScreen();
-    Integer getDataFromProductListScreen();
-  }
+//  interface Router {
+//
+//    //ProductItem getDataFromProductListScreen();
+//    Integer getDataFromProductListScreen();
+//  }
 }

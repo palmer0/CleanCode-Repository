@@ -2,6 +2,7 @@ package es.ulpgc.eite.cleancode.catalog.products;
 
 import java.lang.ref.WeakReference;
 
+import es.ulpgc.eite.cleancode.catalog.app.CatalogMediator;
 import es.ulpgc.eite.cleancode.catalog.data.ProductItem;
 
 
@@ -12,11 +13,18 @@ public class ProductListPresenter implements ProductListContract.Presenter {
   private WeakReference<ProductListContract.View> view;
   private ProductListState state;
   private ProductListContract.Model model;
-  private ProductListContract.Router router;
+  //private ProductListContract.Router router;
+  private CatalogMediator mediator;
 
-  public ProductListPresenter(ProductListState state) {
-    this.state = state;
+
+  public ProductListPresenter(CatalogMediator mediator) {
+    this.mediator = mediator;
+    state = mediator.getProductListState();
   }
+
+//  public ProductListPresenter(ProductListState state) {
+//    this.state = state;
+//  }
 
   @Override
   public void injectView(WeakReference<ProductListContract.View> view) {
@@ -28,9 +36,14 @@ public class ProductListPresenter implements ProductListContract.Presenter {
     this.model = model;
   }
 
-  @Override
-  public void injectRouter(ProductListContract.Router router) {
-    this.router = router;
+//  @Override
+//  public void injectRouter(ProductListContract.Router router) {
+//    this.router = router;
+//  }
+
+
+  private void passDataToProductDetailScreen(Integer itemId) {
+    mediator.setProductId(itemId);
   }
 
   @Override
@@ -48,8 +61,10 @@ public class ProductListPresenter implements ProductListContract.Presenter {
   @Override
   public void selectProductListData(ProductItem item) {
     //router.passDataToProductDetailScreen(item);
-    router.passDataToProductDetailScreen(item.id);
-    router.navigateToProductDetailScreen();
+    //router.passDataToProductDetailScreen(item.id);
+    passDataToProductDetailScreen(item.id);
+    //router.navigateToProductDetailScreen();
+    view.get().navigateToProductDetailScreen();
   }
 
 
